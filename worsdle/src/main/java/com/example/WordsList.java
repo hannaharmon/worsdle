@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class WordsList {
 
-    final String WORDS_FILE_NAME = "words.txt";
+    final static String WORDS_FILE_NAME = "words.txt";
 
     // Make these static because they have to stay the same accross rounds (all instances of word list share the same vars)
     static List<String> words;     // Stores the array of usable words
@@ -71,12 +71,14 @@ public class WordsList {
     */
     private static void markWordAsUsed(String wordToUse) {
         usedWords.add(wordToUse);
-        if (words.indexOf(wordToUse) >= 0) {
+        if (words.contains(wordToUse)) {
             words.remove(words.indexOf(wordToUse));
         }
     }
 
     public static void updateWordsListFromString(String usedWordsString) {
+        words = possibleWords;
+        usedWords.clear();
         Scanner usedWordScanner = new Scanner(usedWordsString);
         while (usedWordScanner.hasNext()) {
             markWordAsUsed(usedWordScanner.next());

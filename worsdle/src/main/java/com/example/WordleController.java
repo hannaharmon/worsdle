@@ -26,14 +26,11 @@ public class WordleController {
     VBox keyboardBox;
     @FXML
     Label messageLabel;
-    @FXML
-    Label saveLoadLabel;
 
     // Setup the wordboard, keyboard, messengers
     Wordboard wordboard;
     Keyboard keyboard;
     WordStateMessenger wordStateMessenger;
-    Messenger saveLoadMessenger;
 
     // Color constants
     final String CORRECT_LETTER_COLOR = "LightGreen";
@@ -67,14 +64,12 @@ public class WordleController {
         keyboard = new Keyboard(keyboardBox);
         wordsList = new WordsList();
         wordStateMessenger = new WordStateMessenger(messageLabel);
-        saveLoadMessenger = new Messenger(saveLoadLabel);
         
         // Grab a solutionWord to use for this round
         solutionWord = wordsList.getWord();
 
         // Make sure the message is empty
         wordStateMessenger.clearMessage();
-        saveLoadMessenger.clearMessage();
     }
 
     // Call on keyboard button click
@@ -277,21 +272,4 @@ public class WordleController {
         enteredWord = "";
         wordboard.clearBoard();
     }
-
-    public void saveGame() {
-        SaveSystem.saveGame();
-        // Print message letting user know data was saved
-        saveLoadLabel.setText("Save successful.");
-    }
-    public void loadGame() {
-        Boolean loadWasSuccessful = SaveSystem.loadGame();
-        // Print message letting user know load was successful/unsuccessful
-        if (loadWasSuccessful) {
-            // Reset the game (could be using a word that is now removed from the words list)
-            resetGame();
-            saveLoadLabel.setText("Load successful.");
-        }
-        else saveLoadLabel.setText("No save exists.");
-    }
-
 }
